@@ -1,25 +1,23 @@
 package com.weather.info.network
 
-import android.os.Parcelable
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import com.weather.info.model.CurrentWeather
-import kotlinx.parcelize.Parcelize
+import com.weather.info.model.ForecastItem
+import com.weather.info.model.WeatherItem
 
-@Parcelize
 @JsonClass(generateAdapter = true)
-data class WeatherResponse(
+data class WeatherDTO(
 
-    @Json(name = "cnt")
-    val cnt: Int?,
+    @Json(name = "name") val city: String,
+    @Json(name = "dt") val dateTime: Long,
+    val main: MainDTO,
+    val wind: WindDTO,
+    @Json(name = "weather") val weathers: List<WeatherItemDTO>
 
-    @Json(name = "cod")
-    val cod: String?,
-
-    @Json(name = "message")
-    val message: Double?,
-
-) : Parcelable
+)
+@JsonClass(generateAdapter = true)
+data class WindDTO(val speed: Double)
 
 @JsonClass(generateAdapter = true)
 data class MainDTO(
@@ -52,7 +50,7 @@ data class WeatherItemDTO(
     @Json(name = "icon") val iconId: String
 )
 
-fun WeatherResponse.asDomainModel(): CurrentWeather {
+fun WeatherDTO.asDomainModel(): CurrentWeather {
     return CurrentWeather(
         city = city,
         dateTime = dateTime,
@@ -71,9 +69,6 @@ fun WeatherResponse.asDomainModel(): CurrentWeather {
     )
 }
 
-/**
- * Convert DTO to a list of domain Forecast objects.
- */
 fun ForecastDTO.asDomainModel(): List<ForecastItem> {
     return forecasts.map {
         ForecastItem(

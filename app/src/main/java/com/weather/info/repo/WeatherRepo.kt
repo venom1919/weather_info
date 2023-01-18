@@ -1,35 +1,32 @@
 package com.weather.info.repo
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.weather.info.model.CurrentWeather
+import com.weather.info.model.ForecastItem
 import com.weather.info.network.WeatherApi
-import com.weather.info.network.WeatherResponse
+import com.weather.info.network.WeatherDTO
 import com.weather.info.network.asDomainModel
 
 class WeatherRepo {
-    private val currentWeather = MutableLiveData<WeatherResponse>()
+
+    val currentWeather = MutableLiveData<WeatherDTO>()
+
     val currentWeatherLD: LiveData<CurrentWeather> =
         Transformations.map(currentWeather) {
             it.asDomainModel()
         }
 
-    private val _forecasts = MutableLiveData<List<ForecastRepo>>()
-    val forecasts: LiveData<List<ForecastRepo>>
+    private val _forecasts = MutableLiveData<List<ForecastItem>>()
+    val forecasts: LiveData<List<ForecastItem>>
         get() = _forecasts
 
     private var _widgetWeather: CurrentWeather? = null
     val widgetWeather: CurrentWeather?
         get() = _widgetWeather
 
-
-    /**
-     * Gets weather information for current location from the
-     * Weather API service and updates the _currentWeather
-     * and _forecasts LiveData. Retrofit makes suspending
-     * functions main-safe.
-     */
     suspend fun getWeatherAndForecasts(lat: Double, lon: Double) {
         try {
             currentWeather.value = WeatherApi.retrofitService.getCurrentWeather(lat, lon)
@@ -40,10 +37,6 @@ class WeatherRepo {
         }
     }
 
-    /**
-     * Gets weather information for user's input from Weather API Retrofit
-     * service and updates the _currentWeather and _forecasts LiveData.
-     */
     suspend fun getWeatherAndForecasts(cityName: String) {
         try {
             currentWeather.value = WeatherApi.retrofitService.getCurrentWeather(cityName)
@@ -54,15 +47,11 @@ class WeatherRepo {
         }
     }
 
-    /**
-     * Gets weather information for current location.
-     * This is to update the widget when app is in background.
-     */
     suspend fun getWeather(lat: Double, lon: Double) {
         try {
             _widgetWeather = WeatherApi.retrofitService.getCurrentWeather(lat, lon).asDomainModel()
         } catch (t: Throwable) {
-            Timber.d(t)
+            t.localizedMessage?.let { Log.d(t.message, it) }
         }
     }
 

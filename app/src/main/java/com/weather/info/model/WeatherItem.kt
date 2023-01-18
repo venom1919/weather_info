@@ -1,4 +1,3 @@
 package com.weather.info.model
 
-class WeatherItem {
-}
+data class WeatherItem(val description: String, val iconId: String )

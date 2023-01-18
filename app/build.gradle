@@ -31,6 +31,10 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    dataBinding {
+        enabled true
+    }
 }
 
 dependencies {
@@ -58,10 +62,13 @@ dependencies {
 
     //Coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1'
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
+
+    implementation "androidx.fragment:fragment-ktx:1.5.5"
 
     //DI
     implementation "com.google.dagger:hilt-android:2.44"
-    implementation "com.squareup.moshi:moshi:1.11.0"
+    implementation "com.squareup.moshi:moshi:1.12.0"
 
     implementation 'com.jakewharton.threetenabp:threetenabp:1.2.1'
     implementation "com.squareup.moshi:moshi-kotlin:1.12.0"

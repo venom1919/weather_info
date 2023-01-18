@@ -33,15 +33,15 @@ object WeatherApi {
 interface WeatherApiService {
 
     @GET("weather?$API_KEY")
-    suspend fun getCurrentWeather(@Query("q") city: String): WeatherRepo
+    suspend fun getCurrentWeather(@Query("q") city: String): WeatherDTO
 
     @GET("weather?$API_KEY")
     suspend fun getCurrentWeather(
         @Query("lat") lat: Double, @Query("lon") lon: Double
-    ): WeatherRepo
+    ): WeatherDTO
 
     @GET("forecast/daily?$API_KEY")
-    suspend fun getForecast(@Query("q") city: String): ForecastRepo
+    suspend fun getForecast(@Query("q") city: String): ForecastDTO
 
     @GET("forecast/daily?$API_KEY")
     suspend fun getForecast(

@@ -8,5 +8,4 @@ data class CurrentWeather(val city: String,
                           val minTemp: Double,
                           val maxTemp: Double,
                           val windSpeed: Double,
-                          val weathers: List<WeatherItem>) {
-}
+                          val weathers: List<WeatherItem>)
