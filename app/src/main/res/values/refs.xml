@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <drawable name="icon_01d" />
+    <drawable name="ic_search" />
+    <drawable name="icon" />
+    <drawable name="min" />
+    <drawable name="max" />
+    <drawable name="humidity" />
+    <drawable name="pressure" />
+    <drawable name="wind" />
+    <drawable name="loading_img" />
+</resources>

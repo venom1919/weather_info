@@ -5,6 +5,8 @@ import android.view.View
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.weather.info.R
+import kotlinx.android.synthetic.main.activity_main.*
+
 
 class MainActivity : AppCompatActivity() {
 

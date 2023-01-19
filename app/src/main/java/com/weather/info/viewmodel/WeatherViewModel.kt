@@ -64,11 +64,9 @@ class WeatherViewModel : ViewModel() {
         }
     }
 
-    //Executes afterTextChanged and sets value of query LiveData to user's input.
     fun afterCityTextChange(e: Editable) {
         query.value = e.trim().toString()
     }
-
 
     fun onStartSearching() {
         _typingCompleteEvent.value = true
